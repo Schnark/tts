@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+	<g>
+		<circle cx="30" cy="30" r="29" fill="#def" />
+		<path d="M 5,55 L 10,45 A 28,19 0,1,1 22,50 Z" stroke-width="2" stroke="#aaa" fill="#fff" />
+		<text x="10" y="39" font-family="sans-serif" font-size="20">TTS</text>
+	</g>
+</svg>

@@ -1,0 +1,95 @@
+html {
+	font-family: sans-serif;
+}
+
+select, button, input, textarea {
+	font: inherit;
+	width: 100%;
+}
+
+label,
+.label {
+	margin: 1em 0.2em;
+	display: block;
+}
+
+.clear {
+	clear: left;
+}
+
+.tab,
+#button-play-pause,
+#button-abort {
+	display: block;
+	float: left;
+	margin: 0;
+	border: solid white;
+	border-width: 0 2px;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background: none;
+	color: white;
+	text-align: center;
+	font-weight: bold;
+	line-height: 2;
+	cursor: pointer;
+}
+
+.tab {
+	width: 33.3%;
+	background-color: #88f;
+}
+
+.tab.selected {
+	background-color: blue;
+}
+
+#button-play-pause.play #pause-icon {
+	display: none;
+}
+
+#button-play-pause.pause #play-icon {
+	display: none;
+}
+
+#button-play-pause,
+#button-abort {
+	width: 50%;
+}
+
+#button-play-pause {
+	background-color: #0a0;
+}
+
+#button-abort {
+	background-color: red;
+}
+
+#button-abort:disabled {
+	background-color: gray;
+}
+
+#loading img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 512px;
+	height: 512px;
+	margin-left: -256px;
+	margin-top: -256px;
+}
+
+@media (max-width: 512px) {
+	#loading img {
+		width: 256px;
+		height: 256px;
+		margin-left: -128px;
+		margin-top: -128px;
+	}
+}
+
+@media (max-width: 256px) {
+	#loading img {
+		display: none;
+	}
+}

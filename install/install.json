@@ -1,0 +1,16 @@
+{
+	"@comment": "Note that the code to transform these data into a webpage is in https://github.com/Schnark/schnark.github.io",
+	"title": {
+		"en": "Text to Speech – App for Firefox OS",
+		"de": "Vorleser – App für Firefox OS"
+	},
+	"serviceworker": true,
+	"icon": "img/icon128.png",
+	"screenshots": [
+		"screenshot.png"
+	],
+	"desc": {
+		"en": ["This app will read texts to you. It supports all languages your system provides a TTS service for.", "You can enter short texts directly, open a text file, or fetch an introduction from Wikipedia."],
+		"de": ["Diese App liest dir Texte vor. Es werden alle Sprachen unterstützt, für die dein System TTS anbietet.", "Du kannst einen kurzen Text direkt eingeben, eine Textdatei öffnen oder dir eine Einleitung aus Wikipedia vorlesen lassen."]
+	}
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<title>Text to Speech</title>
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+<link rel="manifest" href="icons/manifest.json">
+<link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="icons/favicon.ico">
+<meta name="msapplication-config" content="icons/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+<link rel="stylesheet" href="app.css">
+<script>
+if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installPackage)) {
+	navigator.serviceWorker.register('sw.js');
+}
+</script>
+<script src="speaker.js"></script>
+<script src="app.js"></script>
+</head><body>
+<section id="loading">
+<img src="img/icon512.png" alt="">
+</section>
+<section hidden id="main">
+<label><span id="languages-label"></span><br>
+<select id="languages-input"></select></label>
+<button class="tab" id="textbox-button"></button>
+<button class="tab" id="file-button"></button>
+<button class="tab" id="wikipedia-button"></button>
+<div id="textbox-panel" class="clear">
+<label><span id="textbox-label"></span><br>
+<textarea rows=10 cols=80 id="textbox-input"></textarea></label>
+</div>
+<div id="file-panel" class="clear">
+<span id="file-label" class="label"></span>
+</div>
+<div id="wikipedia-panel" class="clear">
+<label><span id="wikipedia-label"></span><br>
+<input id="wikipedia-input"></label>
+</div>
+<button id="button-play-pause"><img id="play-icon" src="img/play.svg" height=16 alt="&gt;"><img id="pause-icon" src="img/pause.svg" height=16 alt="||"></button>
+<button id="button-abort"><img src="img/stop.svg" height=16 alt="x"></button>
+<div id="error" class="clear"></div>
+</section>
+</body></html>

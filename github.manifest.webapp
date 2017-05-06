@@ -1,0 +1,21 @@
+{
+	"version": "1.0",
+	"name": "Text to Speech",
+	"description": "Speech synthesis app",
+	"size": 33549,
+	"package_path": "https://schnark.github.io/tts/tts.zip",
+	"icons": {
+		"128": "/img/icon128.png",
+		"512": "/img/icon512.png"
+	},
+	"developer": {
+		"name": "Michael Müller",
+		"url": "https://github.com/Schnark"
+	},
+	"default_locale": "en",
+	"locales": {
+		"de": {
+			"name": "Vorleser"
+		}
+	}
+}
