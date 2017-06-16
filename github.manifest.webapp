@@ -1,8 +1,8 @@
 {
-	"version": "1.0",
+	"version": "1.1",
 	"name": "Text to Speech",
 	"description": "Speech synthesis app",
-	"size": 33549,
+	"size": 420139,
 	"package_path": "https://schnark.github.io/tts/tts.zip",
 	"icons": {
 		"128": "/img/icon128.png",

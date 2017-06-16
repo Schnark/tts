@@ -2,7 +2,7 @@
 (function (worker) {
 "use strict";
 
-var VERSION = 'v1.0',
+var VERSION = 'v1.1',
 	FILES = [
 		'app.css',
 		'app.js',
@@ -11,7 +11,9 @@ var VERSION = 'v1.0',
 		'img/icon512.png',
 		'img/pause.svg',
 		'img/play.svg',
-		'img/stop.svg'
+		'img/stop.svg',
+		'pdf/pdf.js',
+		'pdf/pdf.worker.js'
 	];
 
 worker.addEventListener('install', function (e) {

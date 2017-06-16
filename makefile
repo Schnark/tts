@@ -1,5 +1,5 @@
 NAME = tts
-CONTENTS = img app.css app.js index.html LICENSE.txt manifest.webapp speaker.js
+CONTENTS = img pdf app.css app.js index.html LICENSE.txt manifest.webapp speaker.js
 ICONPRE = img/icon
 
 .PHONY: all

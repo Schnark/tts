@@ -1,4 +1,4 @@
-/*global MozActivity, speechSynthesis, SpeechSynthesisUtterance */
+/*global MozActivity, speechSynthesis, SpeechSynthesisUtterance, URL, PDFJS */
 (function () {
 "use strict";
 
@@ -6,7 +6,13 @@ function getFile (callback) {
 	var pick;
 	if (window.MozActivity) {
 		pick = new MozActivity({
-			name: 'pick'
+			name: 'pick',
+			data: {
+				type: [
+					'text/plain',
+					'application/pdf'
+				]
+			}
 		});
 
 		pick.onsuccess = function () {
@@ -32,6 +38,63 @@ function getFile (callback) {
 		}, false);
 		pick.click();
 	}
+}
+
+function getAsText (file, callback) {
+	if (file.name && file.name.slice(-4) === '.pdf') {
+		return getPdfAsText(file, callback);
+	} else {
+		return getTextfileAsText(file, callback);
+	}
+}
+
+function getTextfileAsText (file, callback) {
+	var reader = new FileReader();
+	reader.onload = function (e) {
+		callback(e.target.result);
+	};
+	reader.onerror = function () {
+		callback();
+	};
+	reader.readAsText(file);
+	return function () {
+		reader.abort();
+	};
+}
+
+function getPdfAsText (file, callback) {
+	var aborted;
+	PDFJS.getDocument(URL.createObjectURL(file)).then(function (pdf) {
+		var pageNum, pages = [];
+	
+		function getTextFromPage (page) {
+			return page.getTextContent().then(function (textContent) {
+				return textContent.items.map(function (item) {
+					return item.str;
+				}).join('\n');
+			});
+		}
+	
+		for (pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+			pages.push(pdf.getPage(pageNum).then(getTextFromPage));
+		}
+
+		return pages.reduce(function (prevPages, thisPage) {
+			return prevPages.then(function (prevText) {
+				return thisPage.then(function (thisText) {
+					return prevText + '\n' + thisText;
+				});
+			});
+		});
+	}).then(function (text) {
+		if (!aborted) {
+			callback(text);
+		}
+	});
+	return function () {
+		aborted = true;
+		callback();
+	};
 }
 
 function AbstractSpeaker () {
@@ -128,20 +191,13 @@ FileSpeaker.prototype.getText = function (callback) {
 		if (!file) {
 			callback();
 		}
-		this.reader = new FileReader();
-		this.reader.onload = function (e) {
-			callback(e.target.result);
-		};
-		this.reader.onerror = function () {
-			callback();
-		};
-		this.reader.readAsText(file);
+		this.doAbort = getAsText(file, callback);
 	}.bind(this));
 };
 
 FileSpeaker.prototype.abortGetText = function () {
-	if (this.reader) {
-		this.reader.abort();
+	if (this.doAbort) {
+		this.doAbort();
 	} else {
 		this.isAborted = true;
 	}

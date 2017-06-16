@@ -13,11 +13,12 @@ l10n = {
 		textboxButton: 'Simple text',
 		textboxLabel: 'Text to speak:',
 		fileButton: 'File',
-		fileLabel: 'Press the play button to select a text file to speak.',
+		fileLabel: 'Press the play button to select a text or PDF file to speak.',
 		wikipediaButton: 'Wikipedia',
 		wikipediaLabel: 'Article title:',
 		error: 'An error occured!',
-		noSpeech: 'Speech synthesis is not supported in your browser!'
+		noSpeech: 'Speech synthesis is not supported in your browser!',
+		noVoices: 'Can’t find any voices for speech synthesis!'
 	},
 	de: {
 		native: 'Deutsch',
@@ -26,11 +27,12 @@ l10n = {
 		textboxButton: 'Text',
 		textboxLabel: 'Text, der gesprochen werden soll:',
 		fileButton: 'Datei',
-		fileLabel: 'Drücke die Abspiel-Schaltfläche um eine Textdatei auszuwählen, die gesprochen werden soll.',
+		fileLabel: 'Drücke die Abspiel-Schaltfläche um eine Text- oder PDF-Datei auszuwählen, die gesprochen werden soll.',
 		wikipediaButton: 'Wikipedia',
 		wikipediaLabel: 'Artikeltitel:',
 		error: 'Es ist ein Fehler aufgetreten!',
-		noSpeech: 'Dein Browser unterstützt keine Sprachsynthese!'
+		noSpeech: 'Dein Browser unterstützt keine Sprachsynthese!',
+		noVoices: 'Keine Stimmen für die Sprachsynthese vorhanden!'
 	},
 	fr: {
 		native: 'Français'
@@ -259,6 +261,11 @@ function setup () {
 	initSpeakers();
 	onVoices();
 	speechSynthesis.onvoiceschanged = onVoices;
+	setTimeout(function () {
+		if (needsInit) {
+			document.getElementById('loading').textContent = translate(getStoredLanguage(), 'noVoices');
+		}
+	}, 5000);
 }
 
 window.onload = setup;
