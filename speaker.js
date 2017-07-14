@@ -40,9 +40,9 @@ function getFile (callback) {
 	}
 }
 
-function getAsText (file, callback) {
+function getAsText (file, callback, prompt) {
 	if (file.name && file.name.slice(-4) === '.pdf') {
-		return getPdfAsText(file, callback);
+		return getPdfAsText(file, callback, prompt);
 	} else {
 		return getTextfileAsText(file, callback);
 	}
@@ -62,11 +62,11 @@ function getTextfileAsText (file, callback) {
 	};
 }
 
-function getPdfAsText (file, callback) {
-	var aborted;
-	PDFJS.getDocument(URL.createObjectURL(file)).then(function (pdf) {
-		var pageNum, pages = [];
-	
+function getPdfAsText (file, callback, prompt) {
+	var aborted, url = URL.createObjectURL(file);
+	PDFJS.getDocument(url).then(function (pdf) {
+		var pageNum, pages = [], start, end, range;
+
 		function getTextFromPage (page) {
 			return page.getTextContent().then(function (textContent) {
 				return textContent.items.map(function (item) {
@@ -74,8 +74,20 @@ function getPdfAsText (file, callback) {
 				}).join('\n');
 			});
 		}
-	
-		for (pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+
+		start = 1;
+		end = pdf.numPages;
+		if (start !== end) {
+			range = start + '-' + end;
+			range = window.prompt(prompt, range);
+			range = /^(\d+)(?:-(\d+))?$/.exec(range || '');
+			if (!range) {
+				return;
+			}
+			start = Number(range[1]);
+			end = Number(range[2] || start);
+		}
+		for (pageNum = start; pageNum <= end; pageNum++) {
 			pages.push(pdf.getPage(pageNum).then(getTextFromPage));
 		}
 
@@ -86,7 +98,9 @@ function getPdfAsText (file, callback) {
 				});
 			});
 		});
-	}).then(function (text) {
+	}).then(null, function () {})
+	.then(function (text) {
+		URL.revokeObjectURL(url);
 		if (!aborted) {
 			callback(text);
 		}
@@ -177,6 +191,7 @@ TextboxSpeaker.prototype.abortGetText = function () {
 };
 
 function FileSpeaker () {
+	this.prompt = '';
 }
 
 FileSpeaker.prototype = new AbstractSpeaker();
@@ -191,7 +206,7 @@ FileSpeaker.prototype.getText = function (callback) {
 		if (!file) {
 			callback();
 		}
-		this.doAbort = getAsText(file, callback);
+		this.doAbort = getAsText(file, callback, this.prompt);
 	}.bind(this));
 };
 
@@ -201,6 +216,10 @@ FileSpeaker.prototype.abortGetText = function () {
 	} else {
 		this.isAborted = true;
 	}
+};
+
+FileSpeaker.prototype.setPrompt = function (prompt) {
+	this.prompt = prompt;
 };
 
 function WikipediaSpeaker (title) {

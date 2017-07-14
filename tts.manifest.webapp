@@ -1,8 +1,8 @@
 {
-	"version": "1.1",
+	"version": "1.2",
 	"name": "Text to Speech",
 	"description": "Speech synthesis app",
-	"size": 420139,
+	"size": 420397,
 	"package_path": "http://localhost:8080/tts.zip",
 	"icons": {
 		"128": "/img/icon128.png",

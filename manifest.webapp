@@ -1,5 +1,5 @@
 {
-	"version": "1.1",
+	"version": "1.2",
 	"name": "Text to Speech",
 	"description": "Speech synthesis app",
 	"launch_path": "/index.html",

@@ -17,6 +17,7 @@ l10n = {
 		wikipediaButton: 'Wikipedia',
 		wikipediaLabel: 'Article title:',
 		error: 'An error occured!',
+		pdfPrompt: 'Which pages should be read?',
 		noSpeech: 'Speech synthesis is not supported in your browser!',
 		noVoices: 'Can’t find any voices for speech synthesis!'
 	},
@@ -31,6 +32,7 @@ l10n = {
 		wikipediaButton: 'Wikipedia',
 		wikipediaLabel: 'Artikeltitel:',
 		error: 'Es ist ein Fehler aufgetreten!',
+		pdfPrompt: 'Welche Seiten sollen vorgelesen werden?',
 		noSpeech: 'Dein Browser unterstützt keine Sprachsynthese!',
 		noVoices: 'Keine Stimmen für die Sprachsynthese vorhanden!'
 	},
@@ -139,6 +141,7 @@ function updateTranslations (lang) {
 	dom.wikipediaInput.placeholder = translate(lang, 'wikipediaButton');
 	dom.wikipediaLabel.textContent = translate(lang, 'wikipediaLabel');
 	dom.error.textContent = translate(lang, 'error');
+	speakers.file.setPrompt(translate(lang, 'pdfPrompt'));
 }
 
 function updateLanguageInput (langs) {
