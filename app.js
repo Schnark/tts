@@ -3,10 +3,11 @@
 (function () {
 "use strict";
 
-var dom = {}, speakers = {}, needsInit = true, l10n;
+var dom = {}, speakers = {}, needsInit = true, file, l10n;
 
 l10n = {
 	en: {
+		langcode: 'en',
 		native: 'English',
 		title: 'Text to Speech',
 		language: 'Language:',
@@ -22,6 +23,7 @@ l10n = {
 		noVoices: 'Can’t find any voices for speech synthesis!'
 	},
 	de: {
+		langcode: 'de',
 		native: 'Deutsch',
 		title: 'Vorleser',
 		language: 'Sprache:',
@@ -127,9 +129,13 @@ function initInterface () {
 	changeLang(getStoredLanguage());
 	dom.loading.hidden = true;
 	dom.main.hidden = false;
+	if (file) {
+		startWithFile(file);
+	}
 }
 
 function updateTranslations (lang) {
+	document.documentElement.lang = translate(lang, 'langcode');
 	document.title = translate(lang, 'title');
 	dom.languagesLabel.textContent = translate(lang, 'language');
 	dom.textboxButton.textContent = translate(lang, 'textboxButton');
@@ -255,6 +261,11 @@ function onAbort () {
 	speakers.current.abort();
 }
 
+function startWithFile (file) {
+	onFile();
+	speakers.current.playFile(file);
+}
+
 function setup () {
 	if (!window.speechSynthesis || !window.SpeechSynthesisUtterance) {
 		document.getElementById('loading').textContent = translate(getStoredLanguage(), 'noSpeech');
@@ -271,5 +282,19 @@ function setup () {
 	}, 5000);
 }
 
-window.onload = setup;
+if (navigator.mozSetMessageHandler) {
+	navigator.mozSetMessageHandler('activity', function (request) {
+		var blob = request.source.data.blob;
+		if (!blob) {
+			return;
+		}
+		if (needsInit) {
+			file = blob;
+		} else {
+			startWithFile(blob);
+		}
+	});
+}
+
+setup();
 })();

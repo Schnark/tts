@@ -1,8 +1,8 @@
 {
-	"version": "1.2",
+	"version": "1.3",
 	"name": "Text to Speech",
 	"description": "Speech synthesis app",
-	"size": 420397,
+	"size": 417935,
 	"package_path": "https://schnark.github.io/tts/tts.zip",
 	"icons": {
 		"128": "/img/icon128.png",
@@ -16,6 +16,24 @@
 	"locales": {
 		"de": {
 			"name": "Vorleser"
+		}
+	},
+	"activities": {
+		"open": {
+			"filters": {
+				"type": [
+					"application/pdf",
+					"text/plain",
+					""
+				],
+				"filename": {
+					"pattern": ".*\\.(pdf|txt)",
+					"regexp": "\\.(pdf|txt)$"
+				}
+			},
+			"disposition": "window",
+			"returnValue": false,
+			"href": "/index.html"
 		}
 	}
 }

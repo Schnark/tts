@@ -196,8 +196,18 @@ function FileSpeaker () {
 
 FileSpeaker.prototype = new AbstractSpeaker();
 
+FileSpeaker.prototype.playFile = function (file) {
+	this.file = file;
+	this.play();
+};
+
 FileSpeaker.prototype.getText = function (callback) {
 	this.reader = false;
+	if (this.file) {
+		this.doAbort = getAsText(this.file, callback, this.prompt);
+		this.file = false;
+		return;
+	}
 	getFile(function (file) {
 		if (this.isAborted) {
 			this.isAborted = false;

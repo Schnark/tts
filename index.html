@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html><head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <title>Text to Speech</title>
+<meta name="viewport" content="width=device-width">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
@@ -16,9 +17,9 @@ if (navigator.serviceWorker && !(navigator.mozApps && navigator.mozApps.installP
 	navigator.serviceWorker.register('sw.js');
 }
 </script>
-<script src="pdf/pdf.js"></script>
-<script src="speaker.js"></script>
-<script src="app.js"></script>
+<script src="pdf/pdf.js" defer></script>
+<script src="speaker.js" defer></script>
+<script src="app.js" defer></script>
 </head><body>
 <section id="loading">
 <img src="img/icon512.png" alt="">
